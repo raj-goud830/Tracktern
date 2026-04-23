@@ -18,7 +18,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <Briefcase className="w-5 h-5 text-gray-500" /> Applications
           </Link>
           <Link href="/kanban" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-md hover:bg-gray-100 font-medium">
-            <Calendar className="w-5 h-5 text-gray-500" /> Kanban Board
+            <LayoutDashboard className="w-5 h-5 text-gray-500" /> Kanban Board
+          </Link>
+          <Link href="/calendar" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-md hover:bg-gray-100 font-medium">
+            <Calendar className="w-5 h-5 text-gray-500" /> Calendar
           </Link>
           <Link href="/resumes" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-md hover:bg-gray-100 font-medium">
             <FileText className="w-5 h-5 text-gray-500" /> Resumes
