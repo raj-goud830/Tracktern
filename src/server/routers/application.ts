@@ -36,14 +36,16 @@ export const applicationRouter = router({
       status: z.string(),
       deadline: z.date().optional(),
       notes: z.string().optional(),
+      resumeId: z.string().optional().nullable(),
     }))
     .mutation(async ({ ctx, input }) => {
       const user = await getPrismaUser(ctx.userId);
+      const data = { ...input, userId: user.id };
+      if (data.resumeId === 'none' || data.resumeId === '') {
+        data.resumeId = null;
+      }
       return prisma.application.create({
-        data: {
-          ...input,
-          userId: user.id,
-        },
+        data,
       });
     }),
   update: protectedProcedure
@@ -54,6 +56,7 @@ export const applicationRouter = router({
       status: z.string().optional(),
       deadline: z.date().optional().nullable(),
       notes: z.string().optional().nullable(),
+      resumeId: z.string().optional().nullable(),
     }))
     .mutation(async ({ ctx, input }) => {
       const user = await getPrismaUser(ctx.userId);
@@ -62,6 +65,11 @@ export const applicationRouter = router({
       if (!app || app.userId !== user.id) {
         throw new TRPCError({ code: 'NOT_FOUND' });
       }
+      
+      if (data.resumeId === 'none' || data.resumeId === '') {
+        data.resumeId = null;
+      }
+
       // Omit undefined fields
       const cleanData = Object.fromEntries(Object.entries(data).filter(([_, v]) => v !== undefined));
       

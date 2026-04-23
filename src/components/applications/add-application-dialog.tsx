@@ -36,12 +36,15 @@ const formSchema = z.object({
   role: z.string().min(1, "Role is required"),
   status: z.string(),
   notes: z.string().optional(),
+  resumeId: z.string().optional().nullable(),
 })
 
 export function AddApplicationDialog() {
   const [open, setOpen] = useState(false)
   const utils = trpc.useUtils()
   
+  const { data: resumes } = trpc.resume.getAll.useQuery()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -49,6 +52,7 @@ export function AddApplicationDialog() {
       role: "",
       status: "Applied",
       notes: "",
+      resumeId: null,
     },
   })
 
@@ -66,11 +70,11 @@ export function AddApplicationDialog() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <DialogTrigger render={
         <Button className="bg-blue-600 hover:bg-blue-700">
           <Plus className="mr-2 h-4 w-4" /> Add Application
         </Button>
-      </DialogTrigger>
+      } />
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add New Application</DialogTitle>
@@ -135,6 +139,31 @@ export function AddApplicationDialog() {
                   <FormControl>
                     <Input placeholder="Any extra info..." {...field} />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="resumeId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Resume</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value || ""}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a resume (optional)" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="none" className="text-gray-500">None</SelectItem>
+                      {resumes?.map((resume) => (
+                        <SelectItem key={resume.id} value={resume.id}>
+                          {resume.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}

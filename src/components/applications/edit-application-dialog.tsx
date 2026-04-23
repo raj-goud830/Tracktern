@@ -37,12 +37,15 @@ const formSchema = z.object({
   role: z.string().min(1, "Role is required"),
   status: z.string(),
   notes: z.string().optional().nullable(),
+  resumeId: z.string().optional().nullable(),
 })
 
 export function EditApplicationDialog({ application }: { application: any }) {
   const [open, setOpen] = useState(false)
   const utils = trpc.useUtils()
   
+  const { data: resumes } = trpc.resume.getAll.useQuery()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -51,6 +54,7 @@ export function EditApplicationDialog({ application }: { application: any }) {
       role: application.role,
       status: application.status,
       notes: application.notes || "",
+      resumeId: application.resumeId || null,
     },
   })
 
@@ -67,11 +71,11 @@ export function EditApplicationDialog({ application }: { application: any }) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <DialogTrigger render={
         <Button variant="ghost" size="icon">
           <Edit className="h-4 w-4 text-blue-500" />
         </Button>
-      </DialogTrigger>
+      } />
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Edit Application</DialogTitle>
@@ -136,6 +140,31 @@ export function EditApplicationDialog({ application }: { application: any }) {
                   <FormControl>
                     <Input placeholder="Any extra info..." {...field} value={field.value || ""} />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="resumeId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Resume</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value || ""}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a resume (optional)" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="none" className="text-gray-500">None</SelectItem>
+                      {resumes?.map((resume) => (
+                        <SelectItem key={resume.id} value={resume.id}>
+                          {resume.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
