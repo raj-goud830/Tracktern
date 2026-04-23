@@ -1,0 +1,89 @@
+'use client'
+
+import { trpc } from "@/lib/trpc"
+import { AddApplicationDialog } from "@/components/applications/add-application-dialog"
+import { EditApplicationDialog } from "@/components/applications/edit-application-dialog"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { Button } from "@/components/ui/button"
+import { Trash2 } from "lucide-react"
+
+export default function ApplicationsPage() {
+  const { data: applications, isLoading } = trpc.application.getAll.useQuery()
+  const utils = trpc.useUtils()
+  const { mutate: deleteApp } = trpc.application.delete.useMutation({
+    onSuccess: () => {
+      utils.application.getAll.invalidate()
+    }
+  })
+
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold tracking-tight text-gray-900">Applications</h2>
+        <AddApplicationDialog />
+      </div>
+
+      <div className="bg-white rounded-md border shadow-sm">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Company</TableHead>
+              <TableHead>Role</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Date Applied</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {isLoading ? (
+              <TableRow>
+                <TableCell colSpan={5} className="text-center py-8 text-gray-500">Loading applications...</TableCell>
+              </TableRow>
+            ) : applications?.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={5} className="text-center py-8 text-gray-500">No applications yet. Add one above!</TableCell>
+              </TableRow>
+            ) : (
+              applications?.map((app) => (
+                <TableRow key={app.id}>
+                  <TableCell className="font-medium">{app.company}</TableCell>
+                  <TableCell>{app.role}</TableCell>
+                  <TableCell>
+                    <span className={`px-2 py-1 rounded-full text-xs font-semibold
+                      ${app.status === 'Applied' ? 'bg-blue-100 text-blue-800' : ''}
+                      ${app.status === 'Interview' ? 'bg-amber-100 text-amber-800' : ''}
+                      ${app.status === 'Accepted' ? 'bg-green-100 text-green-800' : ''}
+                      ${app.status === 'Rejected' ? 'bg-red-100 text-red-800' : ''}
+                    `}>
+                      {app.status}
+                    </span>
+                  </TableCell>
+                  <TableCell>{new Date(app.createdAt).toLocaleDateString()}</TableCell>
+                  <TableCell className="text-right">
+                    <div className="flex justify-end gap-2">
+                      <EditApplicationDialog application={app} />
+                      <Button variant="ghost" size="icon" onClick={() => {
+                        if (confirm("Are you sure you want to delete this application?")) {
+                          deleteApp({ id: app.id })
+                        }
+                      }}>
+                        <Trash2 className="h-4 w-4 text-red-500" />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
+  )
+}
