@@ -1,5 +1,5 @@
 'use client'
-
+import { useState } from 'react'
 import { trpc } from "@/lib/trpc"
 import { AddApplicationDialog } from "@/components/applications/add-application-dialog"
 import { EditApplicationDialog } from "@/components/applications/edit-application-dialog"
@@ -12,22 +12,61 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Trash2 } from "lucide-react"
 
 export default function ApplicationsPage() {
   const { data: applications, isLoading } = trpc.application.getAll.useQuery()
   const utils = trpc.useUtils()
+  const [searchQuery, setSearchQuery] = useState('')
+  const [statusFilter, setStatusFilter] = useState('All')
+
   const { mutate: deleteApp } = trpc.application.delete.useMutation({
     onSuccess: () => {
       utils.application.getAll.invalidate()
     }
   })
 
+  const filteredApplications = applications?.filter(app => {
+    const matchesSearch = app.company.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          app.role.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesStatus = statusFilter === 'All' || app.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">Applications</h2>
         <AddApplicationDialog />
+      </div>
+
+      <div className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-white p-4 rounded-md border shadow-sm">
+        <Input 
+          placeholder="Search company or role..." 
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="max-w-sm"
+        />
+        <Select value={statusFilter} onValueChange={(val) => setStatusFilter(val || 'All')}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Filter by status" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="All">All Statuses</SelectItem>
+            <SelectItem value="Applied">Applied</SelectItem>
+            <SelectItem value="Interviewing">Interviewing</SelectItem>
+            <SelectItem value="Offer">Offer</SelectItem>
+            <SelectItem value="Rejected">Rejected</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       <div className="bg-white rounded-md border shadow-sm">
@@ -46,12 +85,12 @@ export default function ApplicationsPage() {
               <TableRow>
                 <TableCell colSpan={5} className="text-center py-8 text-gray-500">Loading applications...</TableCell>
               </TableRow>
-            ) : applications?.length === 0 ? (
+            ) : filteredApplications?.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={5} className="text-center py-8 text-gray-500">No applications yet. Add one above!</TableCell>
+                <TableCell colSpan={5} className="text-center py-8 text-gray-500">No applications match your search.</TableCell>
               </TableRow>
             ) : (
-              applications?.map((app) => (
+              filteredApplications?.map((app) => (
                 <TableRow key={app.id}>
                   <TableCell className="font-medium">{app.company}</TableCell>
                   <TableCell>{app.role}</TableCell>

@@ -1,6 +1,6 @@
 import { UserButton } from '@clerk/nextjs'
 import Link from 'next/link'
-import { LayoutDashboard, Briefcase, Calendar, FileText } from 'lucide-react'
+import { LayoutDashboard, Briefcase, Calendar, FileText, LineChart } from 'lucide-react'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -25,6 +25,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </Link>
           <Link href="/resumes" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-md hover:bg-gray-100 font-medium">
             <FileText className="w-5 h-5 text-gray-500" /> Resumes
+          </Link>
+          <Link href="/analytics" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-md hover:bg-gray-100 font-medium">
+            <LineChart className="w-5 h-5 text-gray-500" /> Analytics
           </Link>
         </nav>
       </aside>
