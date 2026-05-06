@@ -8,7 +8,7 @@ export default function DashboardPage() {
   const { data: applications, isLoading } = trpc.application.getAll.useQuery()
 
   const stats = [
-    { name: "Total Applications", value: applications?.length || 0, icon: Briefcase, color: "text-blue-500" },
+    { name: "Total Applications", value: applications?.length || 0, icon: Briefcase, color: "text-orange-500" },
     { name: "Interviews", value: applications?.filter(a => a.status === "Interview").length || 0, icon: Clock, color: "text-amber-500" },
     { name: "Offers", value: applications?.filter(a => a.status === "Accepted").length || 0, icon: CheckCircle, color: "text-green-500" },
     { name: "Rejected", value: applications?.filter(a => a.status === "Rejected").length || 0, icon: XCircle, color: "text-red-500" },

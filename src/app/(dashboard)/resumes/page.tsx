@@ -75,7 +75,7 @@ export default function ResumesPage() {
                 accept=".pdf,.doc,.docx" 
                 onChange={(e) => setFile(e.target.files?.[0] || null)}
               />
-              <Button type="submit" disabled={!file || isUploading} className="w-full bg-blue-600 hover:bg-blue-700">
+              <Button type="submit" disabled={!file || isUploading} className="w-full bg-orange-500 hover:bg-orange-600">
                 {isUploading ? "Uploading..." : <><Upload className="w-4 h-4 mr-2" /> Upload</>}
               </Button>
             </form>
@@ -91,8 +91,8 @@ export default function ResumesPage() {
             resumes?.map((resume) => (
               <Card key={resume.id} className="flex flex-row items-center justify-between p-4">
                 <div className="flex items-center gap-3">
-                  <div className="bg-blue-100 p-2 rounded-full">
-                    <FileText className="w-5 h-5 text-blue-600" />
+                  <div className="bg-orange-100 p-2 rounded-full">
+                    <FileText className="w-5 h-5 text-orange-500" />
                   </div>
                   <div>
                     <p className="font-medium text-gray-900">{resume.name}</p>
@@ -100,7 +100,7 @@ export default function ResumesPage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <a href={resume.fileUrl} target="_blank" rel="noopener noreferrer" className="p-2 text-gray-500 hover:text-blue-600 transition">
+                  <a href={resume.fileUrl} target="_blank" rel="noopener noreferrer" className="p-2 text-gray-500 hover:text-orange-500 transition">
                     <ExternalLink className="w-4 h-4" />
                   </a>
                   <Button variant="ghost" size="icon" onClick={() => {

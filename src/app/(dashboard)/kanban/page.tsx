@@ -76,7 +76,7 @@ export default function KanbanPage() {
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
-                              className="p-4 bg-white shadow-sm border border-gray-200 hover:border-blue-300 transition-colors cursor-grab active:cursor-grabbing"
+                              className="p-4 bg-white shadow-sm border border-gray-200 hover:border-orange-300 transition-colors cursor-grab active:cursor-grabbing"
                             >
                               <div className="font-semibold text-gray-900">{app.role}</div>
                               <div className="text-sm text-gray-500 mb-3">{app.company}</div>

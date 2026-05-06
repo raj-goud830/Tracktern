@@ -186,7 +186,7 @@ export function AddApplicationDialog() {
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={isPending} className="w-full bg-blue-600 hover:bg-blue-700">
+            <Button type="submit" disabled={isPending} className="w-full bg-orange-500 hover:bg-orange-600">
               {isPending ? "Saving..." : "Save Application"}
             </Button>
           </form>

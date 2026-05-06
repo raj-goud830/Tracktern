@@ -78,7 +78,7 @@ export function EditApplicationDialog({ application }: { application: any }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={
         <Button variant="ghost" size="icon">
-          <Edit className="h-4 w-4 text-blue-500" />
+          <Edit className="h-4 w-4 text-orange-500" />
         </Button>
       } />
       <DialogContent className="sm:max-w-[425px]">
@@ -187,7 +187,7 @@ export function EditApplicationDialog({ application }: { application: any }) {
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={isPending} className="w-full bg-blue-600 hover:bg-blue-700">
+            <Button type="submit" disabled={isPending} className="w-full bg-orange-500 hover:bg-orange-600">
               {isPending ? "Updating..." : "Update Application"}
             </Button>
           </form>

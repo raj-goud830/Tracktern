@@ -31,9 +31,9 @@ export default function DeadlineReminderEmail({
               Just a quick reminder that you have an upcoming deadline for your application to <strong>{company}</strong> for the <strong>{role}</strong> position.
             </Text>
 
-            <Section className="bg-blue-50 border border-blue-100 rounded-md p-4 mb-6">
-              <Text className="text-blue-800 font-semibold m-0">Deadline Date:</Text>
-              <Text className="text-blue-900 text-lg m-0">{deadlineDate}</Text>
+            <Section className="bg-orange-50 border border-orange-100 rounded-md p-4 mb-6">
+              <Text className="text-orange-500 font-semibold m-0">Deadline Date:</Text>
+              <Text className="text-orange-500 text-lg m-0">{deadlineDate}</Text>
             </Section>
 
             <Text className="text-gray-700 text-base mb-6">
@@ -42,7 +42,7 @@ export default function DeadlineReminderEmail({
 
             <Section className="text-center mt-[32px] mb-[32px]">
               <Button
-                className="bg-blue-600 rounded text-white text-[12px] font-semibold no-underline text-center px-5 py-3"
+                className="bg-orange-500 rounded text-white text-[12px] font-semibold no-underline text-center px-5 py-3"
                 href="https://tracktern.vercel.app/dashboard"
               >
                 Go to Dashboard

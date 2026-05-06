@@ -53,7 +53,7 @@ export default function CalendarPage() {
           style={{ height: '100%' }}
           views={['month', 'week', 'agenda']}
           eventPropGetter={() => ({
-            className: '!bg-blue-600 !border-none !rounded text-white px-2 py-1 text-sm',
+            className: '!bg-orange-500 !border-none !rounded text-white px-2 py-1 text-sm',
           })}
         />
       </div>
