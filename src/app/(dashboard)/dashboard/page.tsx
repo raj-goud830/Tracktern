@@ -16,7 +16,7 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold tracking-tight text-gray-900">Overview</h2>
+      <h2 className="text-2xl font-bold tracking-tight text-orange-500">Overview</h2>
       
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => {
@@ -24,7 +24,7 @@ export default function DashboardPage() {
           return (
             <Card key={stat.name}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">{stat.name}</CardTitle>
+                <CardTitle className="text-lg font-medium">{stat.name}</CardTitle>
                 <Icon className={`h-4 w-4 ${stat.color}`} />
               </CardHeader>
               <CardContent>
@@ -37,7 +37,7 @@ export default function DashboardPage() {
         })}
       </div>
 
-      <h3 className="text-xl font-bold tracking-tight text-gray-900 mt-8">Recent Applications</h3>
+      <h3 className="text-xl font-bold tracking-tight text-orange-500 mt-8">Recent Applications</h3>
       <div className="bg-white shadow rounded-lg border border-gray-200">
         <div className="p-4 text-center text-gray-500">
           {isLoading ? "Loading..." : "View and manage your applications from the Applications tab."}

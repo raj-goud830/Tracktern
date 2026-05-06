@@ -36,6 +36,7 @@ const formSchema = z.object({
   company: z.string().min(1, "Company is required"),
   role: z.string().min(1, "Role is required"),
   status: z.string(),
+  deadline: z.string().optional().nullable(),
   notes: z.string().optional().nullable(),
   resumeId: z.string().optional().nullable(),
 })
@@ -53,6 +54,7 @@ export function EditApplicationDialog({ application }: { application: any }) {
       company: application.company,
       role: application.role,
       status: application.status,
+      deadline: application.deadline ? new Date(application.deadline).toISOString().split('T')[0] : "",
       notes: application.notes || "",
       resumeId: application.resumeId || null,
     },
@@ -66,7 +68,10 @@ export function EditApplicationDialog({ application }: { application: any }) {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    mutate(values)
+    mutate({
+      ...values,
+      deadline: values.deadline ? new Date(values.deadline) : null,
+    })
   }
 
   return (
@@ -127,6 +132,19 @@ export function EditApplicationDialog({ application }: { application: any }) {
                       <SelectItem value="Accepted">Accepted</SelectItem>
                     </SelectContent>
                   </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="deadline"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Deadline</FormLabel>
+                  <FormControl>
+                    <Input type="date" {...field} value={field.value || ""} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

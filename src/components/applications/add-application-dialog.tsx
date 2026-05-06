@@ -35,6 +35,7 @@ const formSchema = z.object({
   company: z.string().min(1, "Company is required"),
   role: z.string().min(1, "Role is required"),
   status: z.string(),
+  deadline: z.string().optional().nullable(),
   notes: z.string().optional(),
   resumeId: z.string().optional().nullable(),
 })
@@ -51,6 +52,7 @@ export function AddApplicationDialog() {
       company: "",
       role: "",
       status: "Applied",
+      deadline: "",
       notes: "",
       resumeId: null,
     },
@@ -65,14 +67,17 @@ export function AddApplicationDialog() {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    mutate(values)
+    mutate({
+      ...values,
+      deadline: values.deadline ? new Date(values.deadline) : undefined,
+    })
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={
-        <Button className="bg-blue-600 hover:bg-blue-700">
-          <Plus className="mr-2 h-4 w-4" /> Add Application
+        <Button className="bg-orange-500 p-6 text-xl hover:bg-orange-600">
+          <Plus className="mr-2  h-4 w-4" /> Add Application
         </Button>
       } />
       <DialogContent className="sm:max-w-[425px]">
@@ -126,6 +131,19 @@ export function AddApplicationDialog() {
                       <SelectItem value="Accepted">Accepted</SelectItem>
                     </SelectContent>
                   </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="deadline"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Deadline</FormLabel>
+                  <FormControl>
+                    <Input type="date" {...field} value={field.value || ""} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

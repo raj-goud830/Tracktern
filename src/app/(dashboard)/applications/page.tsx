@@ -44,19 +44,19 @@ export default function ApplicationsPage() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900">Applications</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-orange-700">Applications</h2>
         <AddApplicationDialog />
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-white p-4 rounded-md border shadow-sm">
+      <div className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-white p-5 rounded-md border shadow-sm">
         <Input 
           placeholder="Search company or role..." 
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="max-w-sm"
+          className="max-w-sm p-5 text-lg"
         />
         <Select value={statusFilter} onValueChange={(val) => setStatusFilter(val || 'All')}>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[180px] p-5 text-md">
             <SelectValue placeholder="Filter by status" />
           </SelectTrigger>
           <SelectContent>
@@ -69,7 +69,7 @@ export default function ApplicationsPage() {
         </Select>
       </div>
 
-      <div className="bg-white rounded-md border shadow-sm">
+      <div className="bg-white text-lg rounded-md border shadow-sm">
         <Table>
           <TableHeader>
             <TableRow>

@@ -10,6 +10,9 @@ const handler = async (req: Request) => {
     req,
     router: appRouter,
     createContext: () => ({ userId }),
+    onError: ({ path, error }) => {
+      console.error(`❌ tRPC failed on ${path ?? '<no-path>'}: ${error.message}`, error);
+    },
   });
 };
 

@@ -52,7 +52,7 @@ export default function KanbanPage() {
   return (
     <div className="space-y-6 h-[calc(100vh-120px)] flex flex-col">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900">Kanban Board</h2>
+        <h2 className="text-2xl font-bold tracking-tight text-orange-500">Kanban Board</h2>
       </div>
 
       <div className="flex-1 overflow-x-auto pb-4">
