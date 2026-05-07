@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import prisma from '@/lib/prisma'
 import { Resend } from 'resend'
 import DeadlineReminderEmail from '@/emails/deadline-reminder'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 export async function GET(request: Request) {
   try {
+    // Initialize Resend inside the handler to prevent build errors
+    const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy')
+
     // Only allow Vercel cron to trigger this, unless in dev mode
     const authHeader = request.headers.get('authorization')
     if (process.env.NODE_ENV === 'production' && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
