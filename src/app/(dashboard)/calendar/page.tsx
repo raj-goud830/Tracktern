@@ -42,7 +42,7 @@ export default function CalendarPage() {
   return (
     <div className="space-y-6 h-[calc(100vh-120px)] flex flex-col">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900">Application Deadlines</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-orange-700">Calendar</h2>
       </div>
       <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200 flex-1 min-h-[500px]">
         <Calendar
@@ -53,7 +53,7 @@ export default function CalendarPage() {
           style={{ height: '100%' }}
           views={['month', 'week', 'agenda']}
           eventPropGetter={() => ({
-            className: '!bg-orange-500 !border-none !rounded text-white px-2 py-1 text-sm',
+            className: '!bg-orange-500 !border-none !rounded text-white px-2 py-1 text-lg',
           })}
         />
       </div>

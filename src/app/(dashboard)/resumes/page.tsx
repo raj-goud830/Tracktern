@@ -59,7 +59,7 @@ export default function ResumesPage() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900">Resumes</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-orange-700">Resumes</h2>
       </div>
 
       <div className="grid md:grid-cols-3 gap-6">
@@ -96,7 +96,7 @@ export default function ResumesPage() {
                   </div>
                   <div>
                     <p className="font-medium text-gray-900">{resume.name}</p>
-                    <p className="text-sm text-gray-500">Uploaded {new Date(resume.createdAt).toLocaleDateString()}</p>
+                    <p className="text-lg text-gray-500">Uploaded {new Date(resume.createdAt).toLocaleDateString()}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">

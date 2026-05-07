@@ -53,24 +53,24 @@ export default function ApplicationsPage() {
           placeholder="Search company or role..." 
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="max-w-sm p-5 text-lg"
+          className="max-w-sm p-5 text-lg md:text-lg"
         />
         <Select value={statusFilter} onValueChange={(val) => setStatusFilter(val || 'All')}>
-          <SelectTrigger className="w-[180px] p-5 text-md">
+          <SelectTrigger className="w-[180px] p-5 text-lg md:text-lg">
             <SelectValue placeholder="Filter by status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="All">All Statuses</SelectItem>
-            <SelectItem value="Applied">Applied</SelectItem>
-            <SelectItem value="Interviewing">Interviewing</SelectItem>
-            <SelectItem value="Offer">Offer</SelectItem>
-            <SelectItem value="Rejected">Rejected</SelectItem>
+            <SelectItem value="All" className="text-lg">All Statuses</SelectItem>
+            <SelectItem value="Applied" className="text-lg">Applied</SelectItem>
+            <SelectItem value="Interviewing" className="text-lg">Interviewing</SelectItem>
+            <SelectItem value="Offer" className="text-lg">Offer</SelectItem>
+            <SelectItem value="Rejected" className="text-lg">Rejected</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
-      <div className="bg-white text-lg rounded-md border shadow-sm">
-        <Table>
+      <div className="bg-white rounded-md border shadow-sm">
+        <Table className="text-lg">
           <TableHeader>
             <TableRow>
               <TableHead>Company</TableHead>
@@ -95,7 +95,7 @@ export default function ApplicationsPage() {
                   <TableCell className="font-medium">{app.company}</TableCell>
                   <TableCell>{app.role}</TableCell>
                   <TableCell>
-                    <span className={`px-2 py-1 rounded-full text-xs font-semibold
+                    <span className={`px-2 py-1 rounded-full text-base font-semibold
                       ${app.status === 'Applied' ? 'bg-orange-100 text-orange-500' : ''}
                       ${app.status === 'Interview' ? 'bg-amber-100 text-amber-800' : ''}
                       ${app.status === 'Accepted' ? 'bg-green-100 text-green-800' : ''}

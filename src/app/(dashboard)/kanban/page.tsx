@@ -52,7 +52,7 @@ export default function KanbanPage() {
   return (
     <div className="space-y-6 h-[calc(100vh-120px)] flex flex-col">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold tracking-tight text-orange-500">Kanban Board</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-orange-700">Kanban Board</h2>
       </div>
 
       <div className="flex-1 overflow-x-auto pb-4">
@@ -79,9 +79,9 @@ export default function KanbanPage() {
                               className="p-4 bg-white shadow-sm border border-gray-200 hover:border-orange-300 transition-colors cursor-grab active:cursor-grabbing"
                             >
                               <div className="font-semibold text-gray-900">{app.role}</div>
-                              <div className="text-sm text-gray-500 mb-3">{app.company}</div>
+                              <div className="text-lg text-gray-500 mb-3">{app.company}</div>
                               
-                              <div className="flex items-center gap-4 text-xs text-gray-500 mt-2 border-t pt-2 border-gray-100">
+                              <div className="flex items-center gap-4 text-base text-gray-500 mt-2 border-t pt-2 border-gray-100">
                                 {app.deadline && (
                                   <div className="flex items-center gap-1">
                                     <CalendarIcon className="w-3 h-3" />

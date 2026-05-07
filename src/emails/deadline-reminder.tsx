@@ -49,7 +49,7 @@ export default function DeadlineReminderEmail({
               </Button>
             </Section>
             
-            <Text className="text-gray-500 text-sm mt-8">
+            <Text className="text-gray-500 text-lg mt-8">
               Best of luck, <br />
               The Tracktern Team
             </Text>

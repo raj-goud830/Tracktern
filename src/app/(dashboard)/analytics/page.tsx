@@ -58,14 +58,14 @@ export default function AnalyticsPage() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900">Analytics</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-orange-700">Analytics</h2>
       </div>
 
       {/* Summary Cards */}
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Applications</CardTitle>
+            <CardTitle className="text-lg font-medium">Total Applications</CardTitle>
             <FileText className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -74,7 +74,7 @@ export default function AnalyticsPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Interviews Secured</CardTitle>
+            <CardTitle className="text-lg font-medium">Interviews Secured</CardTitle>
             <Users className="h-4 w-4 text-amber-500" />
           </CardHeader>
           <CardContent>
@@ -83,7 +83,7 @@ export default function AnalyticsPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Offers Received</CardTitle>
+            <CardTitle className="text-lg font-medium">Offers Received</CardTitle>
             <Award className="h-4 w-4 text-emerald-500" />
           </CardHeader>
           <CardContent>
@@ -92,7 +92,7 @@ export default function AnalyticsPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Offer Rate</CardTitle>
+            <CardTitle className="text-lg font-medium">Offer Rate</CardTitle>
             <Percent className="h-4 w-4 text-orange-500" />
           </CardHeader>
           <CardContent>
