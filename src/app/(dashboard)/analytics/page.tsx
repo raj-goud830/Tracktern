@@ -44,11 +44,22 @@ export default function AnalyticsPage() {
   }))
 
   // Calculate Activity Over Time (By Month)
-  const monthlyCounts = applications?.reduce((acc, app) => {
-    const month = new Date(app.createdAt).toLocaleString('default', { month: 'short' })
-    acc[month] = (acc[month] || 0) + 1
-    return acc
-  }, {} as Record<string, number>) || {}
+  const monthlyCounts =
+  applications?.reduce(
+    (
+      acc: Record<string, number>,
+      app: { createdAt: string | Date }
+    ) => {
+      const month = new Date(app.createdAt).toLocaleString('default', {
+        month: 'short',
+      })
+
+      acc[month] = (acc[month] || 0) + 1
+
+      return acc
+    },
+    {}
+  ) || {}
 
   const barData = Object.keys(monthlyCounts).map(month => ({
     month,
