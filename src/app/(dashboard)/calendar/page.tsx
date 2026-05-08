@@ -26,8 +26,8 @@ export default function CalendarPage() {
   }
 
   const events = applications
-    ?.filter(app => app.deadline)
-    .map(app => {
+    ?.filter((app: { deadline: string | Date | null }) => app.deadline)
+    .map((app: { id: string, company: string, role: string, deadline: string | Date | null }) => {
       const date = new Date(app.deadline!)
       return {
         id: app.id,

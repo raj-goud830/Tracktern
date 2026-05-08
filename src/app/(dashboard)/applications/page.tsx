@@ -34,13 +34,22 @@ export default function ApplicationsPage() {
     }
   })
 
-  const filteredApplications = applications?.filter(app => {
-    const matchesSearch = app.company.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          app.role.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = statusFilter === 'All' || app.status === statusFilter;
-    return matchesSearch && matchesStatus;
-  });
+ const filteredApplications = applications?.filter(
+  (app: {
+    company: string
+    role: string
+    status: string
+  }) => {
+    const matchesSearch =
+      app.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      app.role.toLowerCase().includes(searchQuery.toLowerCase())
 
+    const matchesStatus =
+      statusFilter === 'All' || app.status === statusFilter
+
+    return matchesSearch && matchesStatus
+  }
+)
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">

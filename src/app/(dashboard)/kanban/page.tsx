@@ -39,13 +39,14 @@ export default function KanbanPage() {
   }
 
   const groupedApps = COLUMNS.reduce((acc, col) => {
-    acc[col] = applications?.filter(app => app.status === col) || []
+    acc[col] = applications?.filter((app: { status: string, [key: string]: unknown }) => app.status === col) || []
     return acc
   }, {} as Record<string, typeof applications>)
 
-  applications?.forEach(app => {
+  applications?.forEach((app: { status: string, [key: string]: unknown }) => {
     if (!COLUMNS.includes(app.status)) {
       if (!groupedApps['Applied']) groupedApps['Applied'] = []
+      // @ts-ignore
       groupedApps['Applied'].push(app)
     }
   })
