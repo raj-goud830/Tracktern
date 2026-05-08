@@ -25,10 +25,17 @@ export default function AnalyticsPage() {
   const totalApps = applications?.length || 0
 
   // Calculate Status Distribution
-  const statusCounts = applications?.reduce((acc, app) => {
-    acc[app.status] = (acc[app.status] || 0) + 1
-    return acc
-  }, {} as Record<string, number>) || {}
+  const statusCounts =
+  applications?.reduce(
+    (
+      acc: Record<string, number>,
+      app: { status: string }
+    ) => {
+      acc[app.status] = (acc[app.status] || 0) + 1
+      return acc
+    },
+    {}
+  ) || {}
 
   const pieData = Object.keys(statusCounts).map(status => ({
     name: status,
